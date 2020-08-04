@@ -33,7 +33,8 @@ export default function Picker(props: any) {
         if (!roomsArray) {
             roomsArray = await getRemoteRooms();
         }
-        setRooms(roomsArray)
+        roomsArray = roomsArray.sort((a, b) => (a.room_number < b.room_number) ? -1 : 1);
+        setRooms(roomsArray);
     }
 
     function selectValue(value) {

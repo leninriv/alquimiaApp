@@ -52,3 +52,11 @@ export function getById(id) {
 export function set(reservationsArray) {
     reservations = reservationsArray;
 }
+
+export function deleteRemote(reservation) {
+    db.doc(`${reservation.id}`).delete().then(res => {
+        console.log('reservation done')
+    }).catch(err => {
+        console.log(err)
+    })
+}

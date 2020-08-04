@@ -84,8 +84,7 @@ export default function HomeScreen(props: any) {
         console.log(month)
         const { start, end } = getMonthStartEndDates(month.timestamp, 7);
         await getReservationsPerMonth(start, end, start);
-        // onChangeCalendarDay({ timestamp: start });
-
+        onChangeCalendarDay({ timestamp: start });
     }
 
     useEffect(() => {

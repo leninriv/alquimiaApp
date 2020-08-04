@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Switch, View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { Switch, View, ScrollView, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import GlobalLayout from '../global_components/GlobalLayout';
 import DatePicker from '../components/DatePicker';
 import { Input, Button } from 'react-native-elements';
 import Picker from '../components/Picker';
 import ButtonOptions from '../components/ButtonOptions';
-import { add, update } from '../services/reservations';
-import { Ionicons } from '@expo/vector-icons';
+import { add, update, deleteRemote } from '../services/reservations';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 
@@ -118,10 +118,43 @@ export default function ReservationScreen(props: any) {
         return null
     }
 
+    function deleteItem() {
+        return (
+            <TouchableOpacity onPress={popUpDelete}>
+                <AntDesign name="delete" size={32} color="white" />
+            </TouchableOpacity>
+        );
+    }
+
+    function popUpDelete() {
+        Alert.alert(
+            "Borrar reservacion",
+            "Esta reservacion se eliminara permanentemente, deseas continuar?",
+            [
+                {
+                    text: "Cancelar",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "Borrar", onPress: () => deleteReservation() }
+            ],
+            { cancelable: false }
+        );
+    }
+
+    function deleteReservation() {
+        const reservationSaved = route.params ? route.params.reservationSaved : null
+        if(form.id){
+            deleteRemote(form);
+            reservationSaved && reservationSaved()
+            props.navigation.goBack()
+        }
+        
+    }
+
     async function saveReservation() {
         const reservationSaved = route.params ? route.params.reservationSaved : null
         if (form && form.id) {
-            console.log('vamos a actualizar')
             let updatedReserv: any = formToReservation(form)
             updatedReserv.id = form.id
             update(updatedReserv);
@@ -138,7 +171,7 @@ export default function ReservationScreen(props: any) {
     }
 
     return (
-        <GlobalLayout {...props} headerTitle={"Reservacion"}>
+        <GlobalLayout {...props} headerTitle={"Reservacion"} rightComponent={deleteItem}>
             <TouchableOpacity style={styles.back} onPress={() => { props.navigation.goBack() }}>
                 <Ionicons name="md-arrow-round-back" size={30} color="gray" />
             </TouchableOpacity>
