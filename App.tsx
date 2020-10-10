@@ -44,7 +44,7 @@ export default function App() {
     try {
       const value = await AsyncStorage.getItem('@alquimiaUser')
       const user = JSON.parse(value);
-      if (value !== 'null' && user.uid) {
+      if (value !== 'null' && user && user.uid) {
         changeUserStatus(true);
       }
     } catch (e) {

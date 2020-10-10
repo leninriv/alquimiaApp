@@ -12,7 +12,7 @@ export default function SplashScreen(props) {
             const value = await AsyncStorage.getItem('@alquimiaUser')
             const user = JSON.parse(value);
             console.log(value)
-            if (value !== 'null' &&  user.uid) {
+            if (value !== 'null' &&  user && user.uid) {
                 // Navigate direct
             } else {
                 props.navigation.navigate('Loging')

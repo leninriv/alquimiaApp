@@ -1,4 +1,5 @@
 import { NativeModules } from "react-native";
+import {Restart} from 'fiction-expo-restart';
 import * as firebase from 'firebase';
 import "firebase/auth";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -9,7 +10,7 @@ export async function Loging(email, password) {
             if (res.user) {
                 await setInStorage({ email: res.user.email, uid: res.user.uid, userName: res.user.email })
             }
-            NativeModules.DevSettings.reload();
+            Restart();
             return true;
         }).catch(err => {
             console.log(err)
@@ -20,7 +21,7 @@ export async function Loging(email, password) {
 export async function signOut() {
     await setInStorage('null');
     await firebase.auth().signOut();
-    NativeModules.DevSettings.reload();
+    Restart();
 }
 
 async function setInStorage(user) {

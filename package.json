@@ -15,6 +15,7 @@
     "@react-navigation/stack": "^5.6.2",
     "expo": "~38.0.1",
     "expo-status-bar": "^1.0.0",
+    "fiction-expo-restart": "^1.0.4",
     "firebase": "7.9.0",
     "moment": "^2.27.0",
     "react": "~16.11.0",
