@@ -28,7 +28,6 @@ export default function LogingScreen() {
                 autoCapitalize='none'
                 autoCompleteType='email'
                 errorStyle={{ color: 'red' }}
-
                 onChangeText={setUsername}
             />
             <Input

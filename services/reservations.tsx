@@ -20,7 +20,6 @@ export async function getRemoteReservations(start, end) {
             reservations.push(reservation);
         })
     }).then(res => {
-        console.log('reservaciones listas', reservations)
         return reservations;
     })
 }
@@ -29,7 +28,7 @@ export function add(reservation) {
     db.add(reservation).then(res => {
         console.log('reservation done')
     }).catch(err => {
-        console.log('error',err)
+        console.log('error', err)
     })
 }
 

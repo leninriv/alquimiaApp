@@ -26,7 +26,8 @@ function reservationToForm(reservation) {
         airport_index: reservation.airport === 'yes' ? 1 : 0,
         payment_status: reservation.payment_status,
         payment_type_index: reservationPaymentIndex(reservation.payment_type),
-        additional_info: reservation.additional_info
+        additional_info: reservation.additional_info,
+        color: reservation.color
     }
     return form;
 }
@@ -144,12 +145,12 @@ export default function ReservationScreen(props: any) {
 
     function deleteReservation() {
         const reservationSaved = route.params ? route.params.reservationSaved : null
-        if(form.id){
+        if (form.id) {
             deleteRemote(form);
             reservationSaved && reservationSaved()
             props.navigation.goBack()
         }
-        
+
     }
 
     async function saveReservation() {

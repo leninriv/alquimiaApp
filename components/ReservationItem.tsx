@@ -15,18 +15,16 @@ import Colors from '../constants/Colors';
 function avatarRender(reservation: any, dateSelected) {
     let color = 'gray'
     let icon = 'bed'
-    //console.log(moment(dateSelected).format('YYYY-MM-DD'), moment(reservation.start).format('YYYY-MM-DD'))
     if (dateSelected === reservation.start) {
         color = 'green';
         icon = 'arrow-down';
+    } else if (dateSelected === reservation.end || moment(reservation.end).format('YYYY-MM-DD') === moment(dateSelected).format('YYYY-MM-DD')) {
+        color = 'red';
+        icon = 'arrow-up';
     } else if (dateSelected > reservation.start && dateSelected < reservation.end) {
         color = 'gray';
         icon = 'bed';
-    } else if (dateSelected === reservation.end) {
-        color = 'red';
-        icon = 'arrow-up';
     }
-
     return (
         <Avatar
             rounded

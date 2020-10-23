@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 import GlobalLayout from '../global_components/GlobalLayout';
 import CalendarComponent from '../components/Calendar';
 import ReservationItem from '../components/ReservationItem';
@@ -33,6 +33,7 @@ let listView;
 export default function HomeScreen(props: any) {
     const { navigation } = props;
     const [rooms, setRooms] = useState(null);
+    const [loading, setLoading] = useState(false);
     const [dateSelected, setDateSelected] = useState(moment().startOf('day').valueOf());
     const [reservationsList, setReservations] = useState(null);
     const [allReservations, setAllReserv] = useState(null);
@@ -52,21 +53,25 @@ export default function HomeScreen(props: any) {
     }
 
     async function getReservationsPerMonth(start, end, selectedDate) {
+        setLoading(true);
         const allReserv = await getRemoteReservations(start, end);
         setAllReserv(allReserv);
         const reservList = calculateList(allReserv, selectedDate ? selectedDate : start);
         setReservations(reservList);
+        setLoading(false);
     }
 
     function onChangeCalendarDay(daySelected: any) {
-        listView.scrollTo({ y: 0 })
-        const markedDates = {}
-        const compesation = moment(daySelected.timestamp).add(new Date().getTimezoneOffset(), 'minutes')
-        markedDates[compesation.format('YYYY-MM-DD')] = { selected: true, selectedColor: 'blue' }
-        // TODO: render all calendar markers again
-        setCalendaMarkers(markedDates);
-        setDateSelected(compesation.valueOf());
-        setReservations(calculateList(allReservations, compesation.valueOf()));
+        if (!loading) {
+            listView.scrollTo({ y: 0 })
+            const markedDates = {}
+            const compesation = moment(daySelected.timestamp).add(new Date().getTimezoneOffset(), 'minutes')
+            markedDates[compesation.format('YYYY-MM-DD')] = { selected: true, selectedColor: 'blue' }
+            // TODO: render all calendar markers again
+            setCalendaMarkers(markedDates);
+            setDateSelected(compesation.valueOf());
+            setReservations(calculateList(allReservations, compesation.valueOf()));
+        }
     }
 
     function reservationSaved() {
@@ -102,6 +107,10 @@ export default function HomeScreen(props: any) {
                 onMonthChange={onMonthChange}
             />
             <ScrollView showsVerticalScrollIndicator={false} ref={ref => listView = ref}>
+                {!!loading && <View style={styles.loadingContent}>
+                    <ActivityIndicator size="large" color="gray" />
+                </View>}
+
                 {
                     !!reservationsList && reservationsList.length ? reservationsList.map((reserv, i) => (
                         <ReservationItem
@@ -149,5 +158,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 40
+    },
+    loadingContent: {
+        paddingVertical: 10
     }
 });
