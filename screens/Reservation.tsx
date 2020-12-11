@@ -54,7 +54,7 @@ function formToReservation(form) {
     const payments = ['cash', 'creditCard', 'expedia']
     const reservType = ['booking', 'expedia', 'outside']
     let reservation = {
-        additional_info: form.additional_info,
+        additional_info: form.additional_info || '',
         airport: form.airport_index === 1 ? 'yes' : 'no',
         color: form.color,
         room: form.room,

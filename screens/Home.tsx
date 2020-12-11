@@ -21,7 +21,14 @@ function getMonthStartEndDates(date, dayOffset) {
 function calculateList(allReservations, daySelected) {
     let newArrayReserv = [];
     for (const reservation of allReservations) {
-        if (daySelected >= reservation.start && daySelected <= reservation.end) {
+        const D_1: any = moment(reservation.start).format('MM/DD/YYYY').split("/");
+        const D_2: any = moment(reservation.end).format('MM/DD/YYYY').split("/");
+        const D_3: any = moment(daySelected).format('MM/DD/YYYY').split("/");
+        var d1 = new Date(D_1[2], parseInt(D_1[1]) - 1, D_1[0]); 
+        var d2 = new Date(D_2[2], parseInt(D_2[1]) - 1, D_2[0]); 
+        var d3 = new Date(D_3[2], parseInt(D_3[1]) - 1, D_3[0]);
+
+        if (d3 >= d1 && d3 <= d2) {
             newArrayReserv.push(reservation);
         }
     }
@@ -70,6 +77,7 @@ export default function HomeScreen(props: any) {
             // TODO: render all calendar markers again
             setCalendaMarkers(markedDates);
             setDateSelected(compesation.valueOf());
+
             setReservations(calculateList(allReservations, compesation.valueOf()));
         }
     }

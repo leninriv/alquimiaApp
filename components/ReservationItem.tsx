@@ -15,7 +15,7 @@ import Colors from '../constants/Colors';
 function avatarRender(reservation: any, dateSelected) {
     let color = 'gray'
     let icon = 'bed'
-    if (dateSelected === reservation.start) {
+    if (dateSelected === reservation.start || moment(reservation.start).format('YYYY-MM-DD') === moment(dateSelected).format('YYYY-MM-DD')) {
         color = 'green';
         icon = 'arrow-down';
     } else if (dateSelected === reservation.end || moment(reservation.end).format('YYYY-MM-DD') === moment(dateSelected).format('YYYY-MM-DD')) {
