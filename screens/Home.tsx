@@ -20,14 +20,14 @@ function getMonthStartEndDates(date, dayOffset) {
 
 function calculateList(allReservations, daySelected) {
     let newArrayReserv = [];
+    const D_3: any = moment(daySelected).format('DD/MM/YYYY').split("/");
+    var d3 = new Date(D_3[2], parseInt(D_3[1]) - 1, D_3[0]);
     for (const reservation of allReservations) {
-        const D_1: any = moment(reservation.start).format('MM/DD/YYYY').split("/");
-        const D_2: any = moment(reservation.end).format('MM/DD/YYYY').split("/");
-        const D_3: any = moment(daySelected).format('MM/DD/YYYY').split("/");
+        const D_1: any = moment(reservation.start).format('DD/MM/YYYY').split("/");
+        const D_2: any = moment(reservation.end).format('DD/MM/YYYY').split("/");
         var d1 = new Date(D_1[2], parseInt(D_1[1]) - 1, D_1[0]); 
         var d2 = new Date(D_2[2], parseInt(D_2[1]) - 1, D_2[0]); 
-        var d3 = new Date(D_3[2], parseInt(D_3[1]) - 1, D_3[0]);
-
+        
         if (d3 >= d1 && d3 <= d2) {
             newArrayReserv.push(reservation);
         }

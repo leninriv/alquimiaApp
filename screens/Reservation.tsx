@@ -58,7 +58,7 @@ function formToReservation(form) {
         airport: form.airport_index === 1 ? 'yes' : 'no',
         color: form.color,
         room: form.room,
-        cost: parseInt(form.cost, 10),
+        cost: Math.round(parseFloat(form.cost) * 100) / 100,
         date_updated: Date.now(),
         end: form.end,
         nacionallity: 'none',
@@ -184,7 +184,7 @@ export default function ReservationScreen(props: any) {
                 <ButtonOptions options={['Booking', 'Expedia', 'Outside']} label={'Tipo de reserva'} selectedIndex={form ? form.reservation_type_index : 0} onPress={(newIndex) => { onChangeForm('reservation_type_index', newIndex) }} />
                 <View style={styles.inputContent}>
                     <View style={{ width: '45%' }}>
-                        <Input keyboardType='numeric' onChangeText={(value) => { onChangeForm('cost', value) }} label='Precio Final' placeholder='Precio $' value={form ? form.cost : ''} />
+                        <Input keyboardType='numeric' onChangeText={(value) => { onChangeForm('cost', value) }} label='Precio Final' placeholder='Precio $' value={form ? form.cost : 0} />
                     </View>
                     <View style={{ width: '45%' }}>
                         <Input keyboardType={'numeric'} onChangeText={(value) => { onChangeForm('people_number', value) }} label='Numero de Personas' placeholder='Personas' value={form ? form.people_number : ''} />
