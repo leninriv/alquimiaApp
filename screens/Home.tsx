@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, Linking } from 'react-native';
 import GlobalLayout from '../global_components/GlobalLayout';
 import CalendarComponent from '../components/Calendar';
 import ReservationItem from '../components/ReservationItem';
