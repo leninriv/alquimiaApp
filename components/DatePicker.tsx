@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         fontSize: 18,
         borderBottomColor: Colors.placeholder,
-        borderBottomWidth: 2
+        borderBottomWidth: 2,
+        color:'black'
     },
     placeholder: {
         color: Colors.placeholder

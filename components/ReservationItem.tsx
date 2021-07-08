@@ -47,6 +47,7 @@ export default function ReservationItem(props) {
                     <Text style={styles.description}>{reservation.reservation_type + ' / ' + ' Costo :  $' + reservation.cost}</Text>
                     {!!reservation.additional_info && <Text style={styles.description}>{reservation.additional_info}</Text>}
                 </View>}
+            <View style={[styles.roomColor,{backgroundColor:reservation?.color}]} />
         </TouchableOpacity>
     );
 }
@@ -75,5 +76,13 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 14,
         color: 'gray'
+    },
+    roomColor: {
+        height: 15,
+        width: 15,
+        position: 'absolute',
+        top: 20,
+        right: 20,
+        borderRadius: 4,
     }
 });

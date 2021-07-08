@@ -15,6 +15,7 @@ import ReservationScreen from './screens/Reservation';
 import LogingScreen from './screens/Loging';
 import SplashScreen from "./screens/SplashScreen";
 import ProfileScreen from "./screens/Profile";
+import * as Updates from 'expo-updates';
 
 //Disable all app warnings 
 console.disableYellowBox = true;
@@ -26,7 +27,7 @@ const Stack = createStackNavigator();
 function appStack() {
   return (
     <AppStack.Navigator initialRouteName="Home" >
-      <AppStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }}/>
+      <AppStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <AppStack.Screen name="Reservation" component={ReservationScreen} options={{ headerShown: false }} />
     </AppStack.Navigator>
   )
@@ -42,6 +43,7 @@ export default function App() {
 
   async function getUserStatus() {
     try {
+      await checkUpdates();
       const value = await AsyncStorage.getItem('@alquimiaUser')
       const user = JSON.parse(value);
       if (value !== 'null' && user && user.uid) {
@@ -50,6 +52,18 @@ export default function App() {
     } catch (e) {
       changeUserStatus(false);
       console.log('error', e)
+    }
+  }
+
+  async function checkUpdates() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+
     }
   }
 

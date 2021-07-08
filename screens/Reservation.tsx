@@ -80,7 +80,6 @@ export default function ReservationScreen(props: any) {
         const reservation = route.params ? route.params.reservation : {}
         if (reservation) {
             const newReserv = reservationToForm(reservation);
-            console.log('reserv', newReserv);
             setForm(newReserv);
         }
     }, []);
