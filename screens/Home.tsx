@@ -70,7 +70,7 @@ export default function HomeScreen(props: any) {
 
     function onChangeCalendarDay(daySelected: any) {
         if (!loading) {
-            listView.scrollTo({ y: 0 })
+            listView && listView.scrollTo({ y: 0 })
             const markedDates = {}
             const compesation = moment(daySelected.timestamp).add(new Date().getTimezoneOffset(), 'minutes')
             markedDates[compesation.format('YYYY-MM-DD')] = { selected: true, selectedColor: 'blue' }

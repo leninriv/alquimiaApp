@@ -164,6 +164,7 @@ export default function ReservationScreen(props: any) {
             reservation.author_id = user.uid
             reservation.date_created = Date.now()
             reservation.author_username = user.userName
+            reservation.title = user.title.replace('\n\n','');
             add(reservation);
         }
         reservationSaved && reservationSaved()

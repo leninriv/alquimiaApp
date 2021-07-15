@@ -17,6 +17,7 @@ export async function getRemoteReservations(start, end) {
         querySnapshot.forEach(function (reserv) {
             const reservation = reserv.data();
             reservation.id = reserv.id;
+            reservation.title = reservation.title.replace('\n\n', '');
             reservations.push(reservation);
         })
     }).then(res => {
