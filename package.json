@@ -18,7 +18,7 @@
     "expo-updates": "~0.3.3",
     "fiction-expo-restart": "^1.0.4",
     "firebase": "7.9.0",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
